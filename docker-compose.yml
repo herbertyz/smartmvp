@@ -1,0 +1,30 @@
+# Create and stand up a MySQL service to store date and a Web service to display data
+version: '2.4'
+
+services: 
+    web:
+        container_name: "smartview_1"
+        build:
+            context: ./goviewer
+            dockerfile: Dockerfile
+        image: smartview
+        ports: 
+            - 8080:8080
+        networks:
+            - smartnet
+        restart: on-failure
+    db:
+        container_name: "smartdb_1"
+        build:
+            context: ./sqldb
+            dockerfile: dockerfile.db
+        image: smartdb
+        ports: 
+            - 3306:3306
+        networks:
+            - smartnet
+        restart: always
+ 
+networks:
+    smartnet:
+        name: smartnet

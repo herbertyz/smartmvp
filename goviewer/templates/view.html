@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/assets/css/tachyons.css">
+</head>
+<body>
+<main class="flex flex-column min-vh-100"><!-- use flex to separate the layouts into diff sections. -->
+    <header class="w-100">
+        <div class="w-100 dib bg-washed-blue">
+            <span class="f3 f2-ns fw6 black-80 dib ph3">Query Result</a>
+        </div>
+    </header>
+    <section class="flex-auto flex flex-column flex-row-ns"
+        style="background-color: rgba(151, 182, 209, 1)" >
+
+        <DIV class="pv4 pv2-ns ph2 bg-light-gray overflow-y-scroll"
+             style="background-image: linear-gradient(to left, rgba(151, 182, 209, 1), rgba(255, 255, 255, 0))">
+            <blockquote class="lh-copy">
+                <table>
+            
+                    <!-- Table header -->
+            
+                    <thead>
+                        <tr class="stripe-dark">
+                            <th scope="col">user_id</th>
+                            <th scope="col">email</th>
+                            <th scope="col">phone</th>
+                            <th scope="col">time_completed</th>
+                            <th scope="col">ab_version</th>
+                            <th scope="col">utm_campaingn</th>
+                            <th scope="col">utm_source</th>
+                            <th scope="col">current_savings</th>
+                            <th scope="col">Location</th>
+                        </tr>
+                    </thead>
+            
+                    <!-- Table body -->
+            
+                    <tbody>
+                        {{ range .Rows }}
+                        <tr class="stripe-dark">
+                            <td>{{ .UserID }}</td>
+                            <td>{{ .UserEmail }}</td>
+                            <td>{{ .UserPhone }}</td>
+                            <td>{{ .TimeCompleted }}</td>
+                            <td>{{ .AbVersion }}</td>
+                            <td>{{ .UtmCampaign }}</td>
+                            <td>{{ .UtmSource }}</td>
+                            <td>{{ .CurrentSavings }}</td>
+                            <td>{{ .Location }}</td>
+                        </tr>
+                        {{ end }}
+                    </tbody>
+            
+            
+                    <!-- Table footer -->
+            
+
+                </table>
+            </blockquote>
+
+        </div>
+    </section>
+
+    <section class="flex-auto flex flex-column flex-row-ns">
+        <DIV class="pv4 ph4">
+            [INFO] There are {{ .RCnt }} rows to display for query:
+            <br /> {{ .QStr }}
+        </DIV>
+    </section>
+
+    <footer class="bg-light-green pa4 tc">
+        <span class="f6">&copy; herbert zheng</span>
+    </footer>
+</main>
+</body>
+</html>

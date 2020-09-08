@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/assets/css/tachyons.css">
+</head>
+<body>
+<main class="flex flex-column min-vh-100">
+    <header class="w-100">
+        <div class="w-100 dib bg-washed-blue">
+            <span class="f3 f1-ns fw6 black-80 dib ph3">Smart Viewer</span>
+        </div>
+    </header>
+    <section class="flex-auto flex flex-column">
+        <div style="background: url(/assets/img/keyhole.jpg);" class="vh-25 cover" >
+        </div>
+        <div class="pv4 pv2-ns ph2 bg-light-gray  ph2 ph5-ns"
+             style="background-image: linear-gradient(to left, rgb(151, 182, 209, 1), rgba(255, 255, 255, 0))">
+            <pre class="lh-copy Helvetica f6 f5-ns">
+Usage: 
+    localhost:8080/                     - show this landing page
+    localhost:8080/view?date=YYYY-MM-DD - show all data for time_completed timestamps on date 'YYYY-MM-DD'
+                                        -      following are optional parameters for view
+            &nulluser=(y|N)             -      (default:N) dont show rows where user_id is NULL
+            &orderby=c1,...             -      Sort by column number, the string is passed to MySQL 'ORDER BY'
+            &limit=[offset,]perPage     -      Pagination, offet is 0-based, perPage is # of rows to show
+
+Note: parameter keys are casesensative
+
+Examples:
+    http://localhost:8080/view?date=2019-02-03
+        all records for "2019-02-03" with non-NULL user_id (which is the default)
+
+    http://localhost:8080/view?date=2019-02-03&orderby=5 asc, 8 desc
+        sort on ab_version (column 5) in ascending order, then on current savings (column 8) in descending order
+        note that space between 5 and asc is required, similarly, ditto the space between 8 and desc
+
+    http://localhost:8080/view?date=2019-02-03&nulluser=Y
+        all records for "2019-02-03", allowing records with NULL user_id
+
+    http://localhost:8080/view?date=2019-02-03&nulluser=Y&limit=10
+        same as above with pagination: display first 10 record (first page)
+    
+    http://localhost:8080/view?date=2019-02-03&nulluser=Y&limit=20,10
+        same as above with pagination: display first 10 record starting from offset at 20 (i.e. third page if each page has 20)
+    
+            </pre>
+        </div>
+    </section>  
+
+    <footer class="bg-light-green pa4 tc">
+        <span class="f6">&copy; herbert zheng</span>
+    </footer>
+</main>
+</body>
+</html>

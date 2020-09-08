@@ -1,0 +1,24 @@
+# use official mysql image 
+FROM mysql:8.0
+
+# setup db user & password via environmental variables passed
+ENV MYSQL_ROOT_PASSWORD=rootpwd \
+    MYSQL_DATABASE=funnel_data \
+    MYSQL_USER=dbuser \
+    MYSQL_PASSWORD=userpwd
+
+# this configure allows the mysqld to ingest date from files in specific server file system directory
+COPY mysqld.cnf /etc/mysql/conf.d/mysqld.cnf
+
+# note lead_user_responses_v2.csv file has some 5 record manually corrected
+COPY lead_users.csv lead_user_sessions.csv lead_user_responses_v2.csv  /docker-entrypoint-initdb.d/
+
+# Offical MySQL docker image will execute files with extensions .sh, .sql and .sql.gz 
+#    that are found in /docker-entrypoint-initdb.d. Files will be executed in alphabetical order. 
+COPY schemas.sql /docker-entrypoint-initdb.d/1_schemas.sql
+COPY loaddata.sql /docker-entrypoint-initdb.d/5_loaddata.sql
+COPY createview.sql /docker-entrypoint-initdb.d/6_createview.sql 
+
+
+# port for MySQL server connection; this is already inhered 
+# EXPOSE 3306
