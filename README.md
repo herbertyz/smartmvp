@@ -7,12 +7,22 @@ This MVP demonstates a MySQL server (storing and serving data) and a Webapp serv
 Usage
 -----------------------------------------------
 
-**Prerequisite**: the host system should have Docker installed 
+**Prerequisite**: the host system should have Docker installed. 
+
+In addition, on Mac, the `Docker Desktop` needs to be running. 
+
+Similarly, on Linux, the docker daemon needs to be running. If `docker version` command complains that it can't connect to the daemon, you need to start it by 
+```
+sudo dockerd &
+```
+to get it running in the background.
 
 ## Download project files
 
-git clone 
-
+```
+# create project smartmvp from GitHub repository
+git clone https://github.com/herbertyz/smartmvp.git smartmvp
+```
 
 ## Run
 
@@ -23,7 +33,9 @@ Using docker-compose and the YAML file (`docker-compose.yml`) located under proj
 To start, 
 
 ```
-cd <project directory>
+#  <project directory>
+cd smartmvp
+
 docker-compose up
 ```
 
@@ -40,10 +52,15 @@ docker-compose down --remove-orphans
 ```
 Note: if the previous docker-compose is running in the foreground, you can use `CTRL-C` to stop those process to get the terminal back, or you can use a different terminal. 
 
+The `docker-compose down` command will stop and remove containers. In addition, it will remove the private network defined in the YAML file.
+
 #### Option 2 - build and run docker individually
 
 To build docker image, run following command from your project root directory
 ```
+#  <project directory>
+cd smartmvp
+
 docker build -f sqldb/dockerfile.db -t smartdb sqldb/.
 docker build -f goviewer/Dockerfile -t smartview goviewer/.
 ```
@@ -53,7 +70,7 @@ To bring up a private network so that our two servers can connect to it and comm
 docker network create smartnet
 ```
 
-To bfing up MySQL server
+To bring up MySQL server
 ```
 docker container run -d --name smartdb_1 -p 3306:3306 --network smartnet smartdb
 
@@ -73,7 +90,7 @@ Now you can now point your web browser to `localhost:8080` and issue requests. Y
 
 After done, following are optional commands for cleaning up containers, images and system.
 ```
-container rm -f smartview_1
+docker container rm -f smartview_1
 docker container rm -f smartdb_1
 
 docker image rm smartdb smartview
