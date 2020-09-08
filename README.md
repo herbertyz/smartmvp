@@ -126,6 +126,10 @@ All source file for bring up DB server is under `sqldb` directory
 
 MySQL server accepts connection on TCP port 3306 by default.
 
+When creating the `lead_view`, all nullable fields got some not-null default values so that the Golang Webapp does not need to deal with NULL. Null User ID's get `-1`, null string values just get empty string and null current savings get `-999999999`.
+
+In addition, a table `temp_pivoted_answers` is created to assist pivoting user response answers. This approach is much more computational efficient compare to the alternative considered. Please see the code and comments in `createview.sql` for more details.
+
 ## Webapp server
 
 The web host is implemented in Golang. It listens on port 8080, accept commands and parameters via URL. Data is served via HTML templates and a CSS style sheet.
