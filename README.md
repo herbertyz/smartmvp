@@ -2,7 +2,7 @@
 # Summary
 -----------------------------------------------
 
-This MVP demonstates a MySQL server (storing and serving data) and a Webapp server (accepting user inputs and displaying database records), in seperate docker containers.
+This MVP demonstrates a MySQL server (storing and serving data) and a Webapp server (accepting user inputs and displaying database records), in separate docker containers.
 
 Once all up and running, the Webapp server can be accessed via `localhost:8080`. It connects to the database via MySQL server's default port `3306`.  
 
